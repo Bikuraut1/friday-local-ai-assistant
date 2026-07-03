@@ -432,4 +432,4 @@ That is convenient for a single-user local machine, but unsafe for any exposed d
 
 ## License
 
-No license file is currently included. Until one is added, treat this as source-available code rather than open-source licensed code.
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
