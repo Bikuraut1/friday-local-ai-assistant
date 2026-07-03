@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FRIDAY Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>FRIDAY</h1>
+      <p id="clock">Connecting...</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel services">
+      <h2>System Status</h2>
+      <div id="services" class="service-grid"></div>
+    </section>
+
+    <section class="panel">
+      <h2>VRAM</h2>
+      <div id="vram"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Active Models</h2>
+      <div id="models"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Memory</h2>
+      <div id="memory-count" class="metric">0</div>
+      <div id="followups"></div>
+    </section>
+
+    <section class="panel wide">
+      <h2>Recent Routing</h2>
+      <div id="routing"></div>
+    </section>
+
+    <section class="panel wide">
+      <h2>Recent Conversations</h2>
+      <div id="conversations"></div>
+    </section>
+
+    <section class="panel wide">
+      <h2>Controls</h2>
+      <div class="control-groups">
+        <div>
+          <h3>Operations</h3>
+          <div class="actions">
+            <button data-action="health_report">Health Report</button>
+            <button data-action="backup_standard">Backup</button>
+            <button data-action="monday_briefing">Monday Briefing</button>
+            <button data-action="memory_consolidation">Consolidate Memory</button>
+          </div>
+        </div>
+        <div>
+          <h3>Services</h3>
+          <div class="actions">
+            <button data-action="start_voice">Start Voice</button>
+            <button data-action="stop_voice" class="danger">Stop Voice</button>
+            <button data-action="start_router">Start Router</button>
+            <button data-action="stop_router" class="danger">Stop Router</button>
+            <button data-action="start_vision">Start Vision</button>
+            <button data-action="stop_vision" class="danger">Stop Vision</button>
+          </div>
+        </div>
+        <div>
+          <h3>Checks</h3>
+          <div class="actions">
+            <button data-action="router_health">Router Check</button>
+            <button data-action="vision_latest">Latest Vision</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel wide">
+      <h2>Action Output</h2>
+      <pre id="action-output">Ready.</pre>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+qdrant-client
+requests
+pydantic
+mem0ai
+ollama

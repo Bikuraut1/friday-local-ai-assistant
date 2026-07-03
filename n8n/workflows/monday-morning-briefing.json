@@ -1,0 +1,91 @@
+{
+  "id": "friday-monday-morning-briefing",
+  "name": "FRIDAY - Monday Morning Briefing",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 7,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "9af78ef2-8138-4a55-879c-b5676809e2c1",
+      "name": "Every Monday 07:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "friday/monday-briefing",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "c37daf35-6742-4dd5-8398-44a5e7f492ed",
+      "name": "Manual Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        120
+      ],
+      "webhookId": "friday-monday-briefing"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://friday-n8n-automation:8788/run/monday-briefing",
+        "sendBody": false,
+        "options": {}
+      },
+      "id": "2e3df553-62a0-47a0-82d4-19897747ac4d",
+      "name": "Create Briefing",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        300,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Every Monday 07:00": {
+      "main": [
+        [
+          {
+            "node": "Create Briefing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Webhook": {
+      "main": [
+        [
+          {
+            "node": "Create Briefing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

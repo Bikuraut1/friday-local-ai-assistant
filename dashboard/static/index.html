@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FRIDAY // Core</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="hud">
+    <!-- ===== TOP BAR ===== -->
+    <header class="topbar">
+      <div class="brand">F<span>R</span>IDAY<em>// local core</em></div>
+      <div class="greeting">
+        <div class="clock" id="clock">--:--:--</div>
+        <div class="hello" id="greeting">Good day, Boss</div>
+      </div>
+      <div class="wake" id="wake">
+        <span class="wdot" id="wake-dot"></span>
+        <span id="wake-text">CONNECTING…</span>
+      </div>
+    </header>
+
+    <!-- ===== MAIN GRID ===== -->
+    <div class="grid">
+      <!-- LEFT: systems -->
+      <section class="panel">
+        <div class="ptitle">SYSTEMS <span id="systems-count" class="ptcount">–/–</span></div>
+        <div class="svc" id="services"></div>
+      </section>
+
+      <!-- CENTER: reactor -->
+      <section class="reactor-wrap">
+        <svg viewBox="0 0 300 300" class="reactor" aria-hidden="true">
+          <defs>
+            <radialGradient id="core" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="var(--glow)"/>
+              <stop offset="55%" stop-color="var(--accent)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+          </defs>
+          <circle cx="150" cy="150" r="120" class="ring ring-dash r1"/>
+          <circle cx="150" cy="150" r="98"  class="ring ring-dash2 r2"/>
+          <circle cx="150" cy="150" r="78"  class="ring ring-thin"/>
+          <circle cx="150" cy="150" r="44"  fill="url(#core)" class="corepulse"/>
+          <circle cx="150" cy="150" r="44"  class="ring ring-core"/>
+        </svg>
+        <div class="reactor-center">
+          <div class="rc-model" id="active-model">IDLE</div>
+          <div class="rc-state" id="core-state">STANDBY</div>
+        </div>
+        <div class="latency" id="reactor-sub">awaiting telemetry…</div>
+      </section>
+
+      <!-- RIGHT: vitals -->
+      <section class="panel">
+        <div class="ptitle">GPU <span id="gpu-name" class="ptcount">—</span></div>
+        <div class="gauge-wrap">
+          <svg viewBox="0 0 120 120" class="gauge" aria-hidden="true">
+            <circle cx="60" cy="60" r="50" class="g-track"/>
+            <circle cx="60" cy="60" r="50" class="g-fill" id="vram-arc"/>
+          </svg>
+          <div class="gauge-num"><b id="vram-pct">--%</b><span id="vram-detail">– / – GB</span></div>
+        </div>
+        <div class="bar"><label>GPU LOAD<i id="gpu-util">–%</i></label><div class="track"><div class="fill" id="gpu-util-bar" style="width:0%"></div></div></div>
+        <div class="bar"><label>MEMORY<i id="mem-count">– notes</i></label><div class="track"><div class="fill" id="mem-bar" style="width:0%"></div></div></div>
+        <div class="followups" id="followups"></div>
+      </section>
+    </div>
+
+    <!-- ===== BOTTOM ROW ===== -->
+    <div class="bottom">
+      <section class="voice">
+        <div class="ptitle">VOICE <span class="ptcount" id="voice-sub">whisper → kokoro</span></div>
+        <div class="wave" id="wave"></div>
+      </section>
+      <section class="ticker">
+        <div class="ptitle">ROUTER LOG</div>
+        <div class="routing" id="routing"></div>
+      </section>
+    </div>
+
+    <!-- ===== QUICK ACTIONS ===== -->
+    <div class="actions">
+      <button data-action="monday_briefing">Monday Briefing</button>
+      <button data-action="memory_consolidation">Consolidate Memory</button>
+      <button data-action="health_report">Health Report</button>
+      <button data-action="router_health">Router Check</button>
+      <button data-action="vision_latest">Latest Vision</button>
+      <button data-action="start_voice">Start Voice</button>
+      <button data-action="stop_voice" class="danger">Stop Voice</button>
+      <button data-action="start_router">Start Router</button>
+      <button data-action="stop_router" class="danger">Stop Router</button>
+      <button data-action="start_vision">Start Vision</button>
+      <button data-action="stop_vision" class="danger">Stop Vision</button>
+      <button data-action="backup_standard">Backup</button>
+    </div>
+    <pre class="console" id="action-output" hidden>Ready.</pre>
+
+    <!-- legacy hooks kept so older scripts/tests referencing them don't break -->
+    <div id="models" hidden></div>
+    <div id="vram" hidden></div>
+    <div id="memory-count" hidden></div>
+    <div id="conversations" hidden></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

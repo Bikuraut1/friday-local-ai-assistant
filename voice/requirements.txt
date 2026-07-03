@@ -1,0 +1,8 @@
+# FRIDAY voice / Phase 3 dependency manifest.
+numpy==2.4.6
+openai-whisper==20250625
+openwakeword==0.6.0
+python-dotenv==1.2.2
+requests==2.34.2
+sounddevice==0.5.5
+soundfile==0.14.0

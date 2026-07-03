@@ -1,0 +1,5 @@
+# FRIDAY vision / Phase 3 dependency manifest.
+pillow==12.2.0
+requests==2.34.2
+sounddevice==0.5.5
+soundfile==0.14.0

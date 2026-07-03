@@ -1,0 +1,6 @@
+# FRIDAY agent / Phase 3 dependency manifest.
+beautifulsoup4==4.15.0
+open-interpreter==0.4.3
+psutil==5.9.8
+pypdf==6.14.2
+requests==2.34.2

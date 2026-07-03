@@ -1,0 +1,6 @@
+{
+  "_comment": "FRIDAY n8n scripts / Phase 3 dependency manifest.",
+  "private": true,
+  "type": "module",
+  "dependencies": {}
+}

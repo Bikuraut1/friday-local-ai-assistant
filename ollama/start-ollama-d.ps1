@@ -1,0 +1,8 @@
+$env:OLLAMA_MODELS='D:\Friday\ollama\models'
+$env:OLLAMA_HOST='0.0.0.0:11434'
+$env:OLLAMA_MAX_LOADED_MODELS='1'
+$env:OLLAMA_NUM_PARALLEL='1'
+$env:OLLAMA_FLASH_ATTENTION='1'
+$env:OLLAMA_KV_CACHE_TYPE='q8_0'
+$env:OLLAMA_MAX_TRANSFER_STREAMS='1'
+& 'C:\Users\Biku Raut\AppData\Local\Programs\Ollama\ollama.exe' serve *> 'D:\Friday\logs\ollama-serve.log'

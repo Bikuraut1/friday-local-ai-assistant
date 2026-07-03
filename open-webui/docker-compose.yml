@@ -1,0 +1,71 @@
+services:
+  open-webui:
+    image: openwebui/open-webui:latest
+    container_name: friday-open-webui
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:3000:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      OLLAMA_BASE_URL: "http://host.docker.internal:11434"
+      VECTOR_DB: "qdrant"
+      QDRANT_URI: "http://host.docker.internal:6333"
+      QDRANT_ON_DISK: "true"
+      QDRANT_COLLECTION_PREFIX: "friday-rag"
+      ENABLE_RAG_HYBRID_SEARCH: "True"
+      ENABLE_RAG_HYBRID_SEARCH_ENRICHED_TEXTS: "True"
+      RAG_HYBRID_BM25_WEIGHT: "0.45"
+      RAG_TOP_K: "5"
+      RAG_TOP_K_RERANKER: "8"
+      RAG_RELEVANCE_THRESHOLD: "0.0"
+      RAG_ALLOWED_FILE_EXTENSIONS: "pdf,docx,txt,md"
+      RAG_EMBEDDING_ENGINE: "ollama"
+      RAG_EMBEDDING_MODEL: "nomic-embed-text"
+      RAG_OLLAMA_BASE_URL: "http://host.docker.internal:11434"
+      RAG_EMBEDDING_MODEL_AUTO_UPDATE: "False"
+      RAG_RERANKING_ENGINE: "external"
+      RAG_RERANKING_MODEL: "friday-local-reranker"
+      RAG_EXTERNAL_RERANKER_URL: "http://host.docker.internal:8770/v1/rerank"
+      RAG_EXTERNAL_RERANKER_API_KEY: "${RAG_EXTERNAL_RERANKER_API_KEY}"
+      RAG_EXTERNAL_RERANKER_TIMEOUT: "10"
+      RAG_RERANKING_MODEL_AUTO_UPDATE: "False"
+      WEB_LOADER_ENGINE: ""
+      ENABLE_RAG_LOCAL_WEB_FETCH: "True"
+      YOUTUBE_LOADER_LANGUAGE: "en"
+      ENABLE_WEB_SEARCH: "True"
+      WEB_SEARCH_ENGINE: "searxng"
+      SEARXNG_QUERY_URL: "http://host.docker.internal:8081/search?q=<query>&format=json"
+      SEARXNG_LANGUAGE: "en"
+      WEB_SEARCH_RESULT_COUNT: "5"
+      WEB_SEARCH_CONCURRENT_REQUESTS: "3"
+      BYPASS_WEB_SEARCH_EMBEDDING_AND_RETRIEVAL: "False"
+      BYPASS_WEB_SEARCH_WEB_LOADER: "False"
+      WHISPER_MODEL: "medium"
+      WHISPER_MODEL_DIR: "/app/backend/data/cache/whisper/models"
+      WHISPER_COMPUTE_TYPE: "int8"
+      WHISPER_MODEL_AUTO_UPDATE: "False"
+      WHISPER_LANGUAGE: ""
+      WHISPER_MULTILINGUAL: "True"
+      AUDIO_STT_ENGINE: ""
+      AUDIO_STT_MODEL: ""
+      AUDIO_STT_SUPPORTED_CONTENT_TYPES: "audio/wav,audio/x-wav,audio/mpeg,audio/mp4,audio/webm,audio/ogg,audio/flac"
+      AUDIO_STT_ALLOWED_EXTENSIONS: "wav,mp3,m4a,webm,ogg,flac,mp4,mpga,mpeg"
+      AUDIO_TTS_ENGINE: "openai"
+      AUDIO_TTS_OPENAI_API_BASE_URL: "http://host.docker.internal:8880/v1"
+      AUDIO_TTS_OPENAI_API_KEY: "${AUDIO_TTS_OPENAI_API_KEY}"
+      AUDIO_TTS_MODEL: "${FRIDAY_TTS_MODEL:-kokoro}"
+      AUDIO_TTS_VOICE: "${FRIDAY_TTS_VOICE:-af_bella}"
+      AUDIO_TTS_SPLIT_ON: "punctuation"
+      WEBUI_SECRET_KEY: "${WEBUI_SECRET_KEY}"
+      # TODO: Enable WEBUI_AUTH before exposing Open WebUI beyond 127.0.0.1.
+      WEBUI_AUTH: "False"
+      DEFAULT_MODELS: "friday:phi4"
+      TASK_MODEL: "friday:phi4"
+      WEBUI_NAME: "FRIDAY"
+      ENABLE_SIGNUP: "False"
+    volumes:
+      - D:/Friday/open-webui/data:/app/backend/data
+      - D:/Friday/knowledge-base:/knowledge-base

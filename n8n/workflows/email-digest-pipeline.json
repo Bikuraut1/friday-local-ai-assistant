@@ -1,0 +1,88 @@
+{
+  "id": "friday-email-digest-pipeline",
+  "name": "FRIDAY - Email Digest Pipeline",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 18,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "cd031f09-4b5d-4053-9d16-b8d97fce49ed",
+      "name": "Every Day 18:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "friday/email-digest",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "bb6f0461-8a17-4ddb-b29b-584de7f174de",
+      "name": "Manual Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        120
+      ],
+      "webhookId": "friday-email-digest"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://friday-n8n-automation:8788/run/email-digest",
+        "sendBody": false,
+        "options": {}
+      },
+      "id": "ef6ae5ca-cf1d-4320-9372-7588c772079d",
+      "name": "Create Digest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        300,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Every Day 18:00": {
+      "main": [
+        [
+          {
+            "node": "Create Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Webhook": {
+      "main": [
+        [
+          {
+            "node": "Create Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

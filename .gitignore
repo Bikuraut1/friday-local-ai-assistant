@@ -1,0 +1,78 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+id_rsa
+id_ed25519
+
+# Local Codex/agent workspace state
+.codex/
+.agents/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Logs and generated reports
+logs/
+*.log
+*.err.log
+*.out.log
+maintenance/reports/
+
+# Backups and local exports
+backups/
+*.backup
+*.bak
+*.zip
+
+# Local service state and databases
+open-webui/data/
+n8n/data/
+n8n/output/
+n8n/state/
+n8n/logs/
+mem0/qdrant/storage/
+mem0/history.db
+mem0/bridge/*.pid
+searxng/data/
+
+# Downloaded AI models and caches
+ollama/models/
+voice/whisper/models/
+voice/wakewords/
+open-webui/data/cache/
+
+# Captured local media
+voice/recordings/
+voice/test-audio/
+voice/*.mp3
+vision/screenshots/
+vision/logs/
+
+# OS/editor noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/

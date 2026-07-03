@@ -1,0 +1,15 @@
+services:
+  friday-searxng:
+    image: searxng/searxng:latest
+    container_name: friday-searxng
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:8081:8080"
+    environment:
+      SEARXNG_BASE_URL: "http://localhost:8081/"
+      SEARXNG_SECRET: "${SEARXNG_SECRET}"
+    volumes:
+      - D:/Friday/searxng/settings.yml:/etc/searxng/settings.yml:ro
+      - D:/Friday/searxng/data:/var/cache/searxng

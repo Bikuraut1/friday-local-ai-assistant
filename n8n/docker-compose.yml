@@ -1,0 +1,62 @@
+services:
+  friday-n8n-automation:
+    image: node:22-alpine
+    container_name: friday-n8n-automation
+    restart: unless-stopped
+    env_file:
+      - .env
+    working_dir: /friday
+    command: ["node", "/friday/n8n/scripts/automation_api.mjs"]
+    ports:
+      - "127.0.0.1:8788:8788"
+    environment:
+      FRIDAY_ROOT: "/friday"
+      FRIDAY_AUTOMATION_PORT: "8788"
+      FRIDAY_OLLAMA_URL: "http://host.docker.internal:11434"
+      FRIDAY_OPEN_WEBUI_URL: "http://host.docker.internal:3000"
+      FRIDAY_MEMORY_BRIDGE_URL: "http://host.docker.internal:8765"
+      FRIDAY_SEARXNG_URL: "http://host.docker.internal:8081/search"
+      FRIDAY_MODEL: "friday:phi4"
+      FRIDAY_OPENWEBUI_EMAIL: "${FRIDAY_OPENWEBUI_EMAIL}"
+      FRIDAY_OPENWEBUI_PASSWORD: "${FRIDAY_OPENWEBUI_PASSWORD}"
+    volumes:
+      - D:/Friday:/friday
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  friday-n8n:
+    image: n8nio/n8n:latest
+    container_name: friday-n8n
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - friday-n8n-automation
+    ports:
+      - "127.0.0.1:5678:5678"
+    environment:
+      N8N_HOST: "localhost"
+      N8N_PORT: "5678"
+      N8N_PROTOCOL: "http"
+      WEBHOOK_URL: "http://localhost:5678/"
+      N8N_SECURE_COOKIE: "false"
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_VERSION_NOTIFICATIONS_ENABLED: "false"
+      N8N_TEMPLATES_ENABLED: "false"
+      N8N_PERSONALIZATION_ENABLED: "false"
+      N8N_ENCRYPTION_KEY: "${N8N_ENCRYPTION_KEY}"
+      GENERIC_TIMEZONE: "Asia/Kolkata"
+      TZ: "Asia/Kolkata"
+      FRIDAY_ROOT: "/friday"
+      FRIDAY_OLLAMA_URL: "http://host.docker.internal:11434"
+      FRIDAY_OPEN_WEBUI_URL: "http://host.docker.internal:3000"
+      FRIDAY_MEMORY_BRIDGE_URL: "http://host.docker.internal:8765"
+      FRIDAY_SEARXNG_URL: "http://host.docker.internal:8081/search"
+      FRIDAY_MODEL: "friday:phi4"
+      FRIDAY_OPENWEBUI_EMAIL: "${FRIDAY_OPENWEBUI_EMAIL}"
+      FRIDAY_OPENWEBUI_PASSWORD: "${FRIDAY_OPENWEBUI_PASSWORD}"
+    volumes:
+      - D:/Friday:/friday
+      - D:/Friday/n8n/data:/home/node/.n8n
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

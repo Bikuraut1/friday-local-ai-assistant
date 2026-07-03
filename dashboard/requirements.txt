@@ -1,0 +1,2 @@
+# FRIDAY dashboard / Phase 3 dependency manifest.
+requests==2.34.2

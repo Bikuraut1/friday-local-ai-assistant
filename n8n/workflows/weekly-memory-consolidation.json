@@ -1,0 +1,91 @@
+{
+  "id": "friday-weekly-memory-consolidation",
+  "name": "FRIDAY - Weekly Memory Consolidation",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                0
+              ],
+              "triggerAtHour": 20,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "e3c7aabf-bff1-4b89-ad6e-49d8546f04e6",
+      "name": "Every Sunday 20:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "friday/memory-consolidation",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "34e806d9-5c40-42a1-8666-f2651c570ee1",
+      "name": "Manual Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        120
+      ],
+      "webhookId": "friday-memory-consolidation"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://friday-n8n-automation:8788/run/memory-consolidation",
+        "sendBody": false,
+        "options": {}
+      },
+      "id": "a0d26de0-56d5-44ef-aa6f-b01f1a01f806",
+      "name": "Consolidate Memory",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        300,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Every Sunday 20:00": {
+      "main": [
+        [
+          {
+            "node": "Consolidate Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Webhook": {
+      "main": [
+        [
+          {
+            "node": "Consolidate Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

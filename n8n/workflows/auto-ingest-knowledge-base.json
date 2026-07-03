@@ -1,0 +1,87 @@
+{
+  "id": "friday-auto-ingest-knowledge-base",
+  "name": "FRIDAY - Auto Ingest Knowledge Base",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "3210f6e5-d357-4140-b2e4-6d937b29a678",
+      "name": "Every 15 Minutes",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "friday/auto-ingest",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "c56662ad-6ca7-4731-8997-9263b778a934",
+      "name": "Manual Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        120
+      ],
+      "webhookId": "friday-auto-ingest"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://friday-n8n-automation:8788/run/auto-ingest",
+        "sendBody": false,
+        "options": {}
+      },
+      "id": "65464fd7-fd7d-4074-8999-c55f5ed60944",
+      "name": "Ingest Changed Files",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        300,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Every 15 Minutes": {
+      "main": [
+        [
+          {
+            "node": "Ingest Changed Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Webhook": {
+      "main": [
+        [
+          {
+            "node": "Ingest Changed Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
